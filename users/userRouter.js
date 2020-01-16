@@ -7,11 +7,11 @@ router.post('/', validateUser, (req, res) => {
   // do your magic!
   data.insert(req.body)
   .then(response => {
-    res.status(201).json({ message: "user created" });
+    return res.status(201).json({ message: "user created" });
   })
   .catch(err => {
     console.log(err);
-    res.status(500).json({ error: "Error creating user." });
+    return res.status(500).json({ error: "Error creating user." });
   })
 
 });
@@ -25,11 +25,11 @@ router.post('/:id/posts', validateUserId, validatePost, (req, res) => {
   }
   posts.insert(sendPackage)
   .then(response => {
-    res.status(201).json({ message: 'New post created.'})
+    return res.status(201).json({ message: 'New post created.'})
   })
   .catch(err => {
     console.log(err);
-    res.status(500).json({ error: 'Post was not added, something went wrong.' });
+    return res.status(500).json({ error: 'Post was not added, something went wrong.' });
   })
 });
 
@@ -37,11 +37,11 @@ router.get('/', (req, res) => {
   // do your magic!
   data.get()
   .then(response => {
-    res.status(200).json(response);
+    return res.status(200).json(response);
   })
   .catch(err => {
     console.log(err);
-    res.status(500).json({ error: "Something went wrong." })
+    return res.status(500).json({ error: "Something went wrong." })
   })
 });
 
@@ -49,11 +49,11 @@ router.get('/:id', validateUserId, (req, res) => {
   // do your magic!
   data.getById(req.params.id)
   .then(response => {
-    res.status(200).json(response);
+    return res.status(200).json(response);
   })
   .catch(err => {
     console.log(err);
-    res.status(500).json({ error: "Error getting user." })
+    return res.status(500).json({ error: "Error getting user." })
   })
 });
 
@@ -61,11 +61,11 @@ router.get('/:id/posts', validateUserId, (req, res) => {
   // do your magic!
   posts.getById(req.params.id)
   .then(response => {
-    res.status(200).json(response);
+    return res.status(200).json(response);
   })
   .catch(err => {
     console.log(err);
-    res.status(500).json({ error: "No Posts." })
+    return res.status(500).json({ error: "No Posts." })
   })
   
 });
@@ -74,11 +74,11 @@ router.delete('/:id', validateUserId, (req, res) => {
   // do your magic!
   data.remove(req.params.id)
   .then(response => {
-    res.status(200).json({ message: "User Deleted." })
+    return res.status(200).json({ message: "User Deleted." })
   })
   .catch(err => {
     console.log(err);
-    res.status(500).json({ error: "User was not deleted." });
+    return res.status(500).json({ error: "User was not deleted." });
   })
 });
 
@@ -106,14 +106,14 @@ function validateUserId(req, res, next) {
     data.get()
       .then(response => {
         response.map(element => {
-          userIds.push(element.id);
+          return userIds.push(element.id);
         })
         
         if (userIds.includes(Number(id))) {
-          next();
+          return next();
         }
         else {
-          res.status(400).json({ error: 'Invalid' });
+          return res.status(400).json({ error: 'Invalid' });
         }
       })
       .catch(err => {
@@ -125,14 +125,14 @@ function validateUserId(req, res, next) {
 function validateUser(req, res, next) {
   // do your magic!
   if (!req.body) {
-    res.status(400).json({ message: "missing user data" })
+    return res.status(400).json({ message: "missing user data" })
   }
   else {
     if (req.body.name) {
-      next();
+      return next();
     }
     else {
-      res.status(400).json({ message: "missing required name field" }
+      return res.status(400).json({ message: "missing required name field" }
       )
     } 
   }
@@ -141,14 +141,14 @@ function validateUser(req, res, next) {
 function validatePost(req, res, next) {
   // do your magic!
   if (!req.body) {
-    res.status(400).json({ message: "missing post data" })
+    return res.status(400).json({ message: "missing post data" })
   }
   else {
     if (req.body.text) {
-      next();
+      return next();
     }
     else {
-      res.status(400).json({ message: "missing required text field" }
+      return res.status(400).json({ message: "missing required text field" }
       )
     } 
   }
