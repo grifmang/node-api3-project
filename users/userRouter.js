@@ -86,7 +86,7 @@ router.put('/:id', validateUserId, (req, res) => {
   // do your magic!
   const { id } = req.params;
   const { name } = req.body;
-  data.update(id, name)
+  data.update(id, {name: name})
   .then(() => {
     return res.status(200).json({ message: "User Updated"});
   })
