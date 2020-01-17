@@ -12,7 +12,6 @@ const ShowPosts = () => {
             axios
             .get(`https://api3-project-lambda.herokuapp.com/api/users/${user.id}/posts`)
             .then(response => {
-                console.log(response.data)
                 response.data.map(element => {
                     return setPosts((aPost) => [...aPost, element])
                 })
@@ -38,36 +37,46 @@ const ShowPosts = () => {
         })
     }
 
+    // const addUser = () => {
+    //     axios
+    //     .post(``)
+    // }
+
     return (
         <>
         <section className="section">
-            <div className="container">
+            <div className="container dropDown">
                 <div className="field">
                     <div className="control">
                         <div className="select is-medium">
-                        <select defaultValue='select' onChange={handleChanges}>
-                            <option disabled value="select">Select User</option>
-                            {users
-                            ? users.map(element => {
-                                return <option key={element.id} value={element.name}>{element.name}</option>
-                            })
-                            : null}
-                        </select>
+                            <select defaultValue='select' onChange={handleChanges}>
+                                <option disabled value="select">Select User</option>
+                                {users
+                                ? users.map(element => {
+                                    return <option key={element.id} value={element.name}>{element.name}</option>
+                                })
+                                : null}
+                            </select>
                         </div>
                     </div>
                 </div>
+                {/* <div className='level'>
+                    <button type='button' onClick={addUser}>Add User</button>
+                    <button type='button' onClick={editUser}>Edit User</button>
+                    <button type='button' onClick={deleteUser}>Delete User</button>
+                </div> */}
             </div>
         </section>
         {posts.length > 0
         ? posts.map(element => {
-            return <section className="hero is-light">
+            return <section key={element.id} className="hero is-light">
                 <div className="hero-body">
                 <div className="container">
                     <h1 className="title">
                         {user.name}
                     </h1>
                     <h2 className="subtitle">
-                    Primary subtitle
+                        {element.text}
                     </h2>
                 </div>
                 </div>
