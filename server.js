@@ -9,7 +9,7 @@ const postsRouter = require('./posts/postRouter');
 server.use(express.json());
 // server.use(helmet());
 // server.use(morgan('tiny'));
-server.use(cors);
+server.use(cors());
 server.use(logger);
 
 server.get('/', (req, res) => {

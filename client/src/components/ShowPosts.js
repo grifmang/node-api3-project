@@ -10,7 +10,7 @@ const ShowPosts = () => {
     useEffect(() => {
         if (user) {
             axios
-            .get(`https://api3-project-lambda.herokuapp.com/api/user/${user}/posts`)
+            .get(`http://localhost:4000/api/user/${user}/posts`)
             .then(response => {
                 setPosts(response.data);
             })
@@ -20,10 +20,11 @@ const ShowPosts = () => {
 
     useEffect(() => {
         axios
-        .get('https://api3-project-lambda.herokuapp.com/api/users')
+        .get('http://localhost:4000/api/users')
         .then(response => {
             response.data.map(element => {
-                setUsers([...users, element.name]);
+                console.log(response.data)
+                return setUsers([...users, element.name]);
             })
         })
         .catch(err => console.log(err.response));
