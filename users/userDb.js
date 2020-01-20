@@ -35,6 +35,7 @@ function insert(user) {
 }
 
 function update(id, changes) {
+  // console.log(id, changes)
   return db('users')
     .where({ id })
     .update(changes);
